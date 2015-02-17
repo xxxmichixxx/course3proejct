@@ -148,7 +148,7 @@ write.table(data3,"clean.train-test.txt",sep="\t",col.names=TRUE,row.names=FALSE
 
 It contains the following variables:
 - activity: this variable describes the activity that was done while the measurements were taken. 
-- 79 variables containing mean or standard deviation of the variables described in the feature selection part of this document. 
+- 66 variables containing mean or standard deviation of the variables described in the feature selection part of this document. 
 
 #### The second tidy dataset is called clean.train-test.means.txt
 
@@ -178,5 +178,5 @@ write.table(data.means,"clean.train-test.means.txt",sep="\t",col.names=TRUE,row.
 It contains the following variables:
 - SubjectID: This variable gives the ID of the subject that was tested.
 - activity: this variable describes the activity that was done while the measurements were taken. 
-- 79 variables containing mean or standard deviation of the variables described in the feature selection part of this document, averaged by Subject and activity. 
+- 66 variables containing mean or standard deviation of the variables described in the feature selection part of this document, averaged by Subject and activity. 
 
