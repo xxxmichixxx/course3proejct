@@ -1,7 +1,6 @@
 ## The original dataset  
 
 For each record it is provided:
-======================================
 
 - Triaxial acceleration from the accelerometer (total acceleration) and the estimated body acceleration.
 - Triaxial Angular velocity from the gyroscope. 
@@ -10,7 +9,6 @@ For each record it is provided:
 - An identifier of the subject who carried out the experiment.
 
 The dataset includes the following files:
-=========================================
 
 - 'README.txt'
 
@@ -39,11 +37,10 @@ The following files are available for the train and test data. Their description
 - 'train/Inertial Signals/body_gyro_x_train.txt': The angular velocity vector measured by the gyroscope for each window sample. The units are radians/second. 
 
 Notes: 
-======
 - Features are normalized and bounded within [-1,1].
 - Each feature vector is a row on the text file.
 
-# Feature Selection 
+### Feature Selection 
 
 
 The features selected for this database come from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ. These time domain signals (prefix 't' to denote time) were captured at a constant rate of 50 Hz. Then they were filtered using a median filter and a 3rd order low pass Butterworth filter with a corner frequency of 20 Hz to remove noise. Similarly, the acceleration signal was then separated into body and gravity acceleration signals (tBodyAcc-XYZ and tGravityAcc-XYZ) using another low pass Butterworth filter with a corner frequency of 0.3 Hz. 
@@ -103,7 +100,7 @@ tBodyGyroJerkMean
 
 ## The tidy data
 
-# The first tidy dataset is called clean.train-test.txt
+#### The first tidy dataset is called clean.train-test.txt
 
 To generate this tidy dataset, fist the training and test data were combined using the code below. 
 The X_*.txt files contain the data, while the y_*.txt files contain the labels that indicate which activity was performed.
@@ -124,14 +121,15 @@ Then only the measurements on the mean and standard deviation for each measureme
 ```
 features <- read.table("features.txt")
 #select indexes of rows which contain mean() or std() in V2 (these numbers will identify the correct columns in train data)
-inx <- c(grep("mean",features[,2]),grep("std",features[,2]))
+inx <- c(grep("mean\\(",features[,2]),grep("std\\(",features[,2]))
 data2 <- data[,inx]
 ```
 
 Then I added descriptive activity names to name the activities in the data set. This was done by matching the activity names as given in the activity_labels.txt file with the activity labels are given in the y_*.txt files.
 The resulting activity names can then simply be added as an additional variable (termed "activity") to the tidy dataset.
 
-```activity <- read.table("activity_labels.txt")
+```
+activity <- read.table("activity_labels.txt")
 activity.names <- merge(labels,activity,by.x="V1",by.y="V1")
 data3 <- cbind(activity=activity.names[,2],data2)
 ```
@@ -152,7 +150,7 @@ It contains the following variables:
 - activity: this variable describes the activity that was done while the measurements were taken. 
 - 79 variables containing mean or standard deviation of the variables described in the feature selection part of this document. 
 
-# The second tidy dataset is called clean.train-test.means.txt
+#### The second tidy dataset is called clean.train-test.means.txt
 
 This tidy data set contains the average of each variable for each activity and each subject.
 
@@ -170,6 +168,7 @@ Then I used plyr to calculate the means of each variable for each activity and s
 ```
 data.means <- ddply(data4,.(subjectID,activity),colwise(mean))
 ```
+
 This line of codes writes the resulting second tidy dataset to a tab delimited text file called "clean.train-test.means.txt".
 
 ```
